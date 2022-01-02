@@ -42,4 +42,15 @@ async function getPatient() {
     return {data: result[0]};
 }
 
-module.exports = {getPatient};
+async function getHospital() {
+    const query = `
+        SELECT *
+        FROM patient
+    `;
+
+    const result = await db.query(query);
+    console.log(result);
+    return {data: result[0]};
+}
+
+module.exports = {getPatient, getHospital};
