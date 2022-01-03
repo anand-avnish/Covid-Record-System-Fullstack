@@ -1,0 +1,19 @@
+.add{
+  border: 2px solid white;
+  color: white;
+  margin:0px 10px;
+}
+
+.add:hover{
+  background-color: white;
+  color: #1555A4;
+}
+
+.header{
+  height:11vh;
+  width:100%;
+  /* text-align:center; */
+  background-color:#1555A4;
+  color: white;
+  padding-top:2vh;
+}

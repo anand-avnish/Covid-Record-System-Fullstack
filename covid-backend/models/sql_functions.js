@@ -30,11 +30,10 @@ const db = require('../config/database');
 
 async function getPatient() {
     const query = `
-        SELECT
-            patient_id, name
-        FROM patient
+        SELECT *
+        FROM patient p, demography d, family_history f, test t 
         where
-            gender='M'
+            p.patient_id=d.patient_id and p.patient_id=f.patient_id and p.patient_id=t.patient_id
     `;
 
     const result = await db.query(query);
@@ -45,7 +44,7 @@ async function getPatient() {
 async function getHospital() {
     const query = `
         SELECT *
-        FROM patient
+        FROM hospital
     `;
 
     const result = await db.query(query);

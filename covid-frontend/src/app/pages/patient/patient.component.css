@@ -1,0 +1,72 @@
+.header{
+  height:12vh;
+  width:100%;
+  text-align:center;
+  background-color:#1555A4;
+  color: white;
+  padding-top:2vh;
+}
+
+.spinner{
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.spin{
+  margin: auto;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
+
+.complete_details{
+  position: absolute;
+
+  background:#FFF;
+  max-width:300px;
+  display:none;
+  padding:5px;
+}
+
+.actual_container{
+  min-width:150px;
+  max-height:80px;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  padding:5px;
+}
+
+th.mat-header-cell,td.mat-cell{
+  padding-left:10px;
+}
+
+.data-container{
+  overflow: auto;
+}
+
+.over{
+  padding: 20px;
+  /* padding-bottom: 20px; */
+  width:100%;
+}
+
+.add{
+  border: 2px solid white;
+  color: white;
+  margin:0px 10px;
+}
+
+.add:hover{
+  background-color: white;
+  color: #1555A4;
+}

@@ -1,0 +1,168 @@
+<!-- <div class="header">
+  <button mat-raised-button class="btn add" (click)="goBack()">Back</button>
+</div> -->
+
+<!-- Header Part -->
+<div style="margin-right: 30pxy-2 mb-4 border-bottom">
+  <header class="d-flex flex-wrap justify-content-center py-2 mb-4 border-bottom">
+    <a routerLinkActive="active" class="nav-link d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+      <span class="fs-4" style="color: #1555A4;">Create New Patient</span>
+    </a>
+    <div class="text-end" style="margin-top: 8px;">
+      <button type="button" class="btn btn-primary" style="margin-right: 8px;" *ngIf="!success" (click)="onSubmit()">Submit</button>
+      <!-- <button type="button" class="btn btn-outline-primary me-2">Save & Publish</button> -->
+      <button type="button" class="btn btn-outline-primary me-2" (click)="goBack()">Cancel</button>
+    </div>
+  </header>
+</div>
+
+<div class="container card">
+  <form [formGroup]="patientForm">
+    <br>
+    <mat-card style="padding: 5px;padding-top:6px; margin:5px; height:auto;">
+      <div class="row" style="margin: 0px;" *ngIf="isLoading">
+        <div class="col">
+            <div class="text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="row" style="margin: 0px; margin-top: 16px;" *ngIf="success">
+        <div class="col jobs" style="text-align:center;">
+          <!-- <h3>Successfully Created New JD</h3> -->
+          <h5>{{res.message}}</h5>
+          <!-- <p>Our team will get back to you once we find a perfect match for you.</p> -->
+        </div>
+      </div>
+      <div class="row" *ngIf = "!isLoading && !success">
+        <div formGroupName="patient">
+
+          <div class="col"  style="margin-top:10px; padding-left:20px;">
+            <h5>Patient Name</h5>
+          </div>
+          <mat-form-field appearance="outline" style="margin-left:20px; width:95%">
+            <mat-label>Patient Name</mat-label>
+            <input matInput placeholder="Name" formControlName="name" required>
+          </mat-form-field>
+
+          <div class="col"  style="margin-top:10px; padding-left:20px;">
+            <h5>Patient Age</h5>
+          </div>
+          <mat-form-field appearance="outline" style="margin-left:20px; width:95%">
+            <mat-label>Patient Age</mat-label>
+            <input matInput placeholder="Age" formControlName="age" required>
+          </mat-form-field>
+
+          <div class="col"  style="margin-top:10px; padding-left:20px;">
+            <h5>Patient Gender</h5>
+          </div>
+          <mat-form-field appearance="outline" style="margin-left:20px; width:95%">
+            <mat-label>Patient Gender</mat-label>
+            <input matInput placeholder="Gender" formControlName="gender" required>
+          </mat-form-field>
+
+          <div class="col"  style="margin-top:10px; padding-left:20px;">
+            <h5>Patient Blood Group</h5>
+          </div>
+          <mat-form-field appearance="outline" style="margin-left:20px; width:95%">
+            <mat-label>Patient Blood Group</mat-label>
+            <input matInput placeholder="Blood Group" formControlName="blood_group" required>
+          </mat-form-field>
+        </div>
+
+        <div formGroupName="demography">
+
+          <div class="col"  style="margin-top:10px; padding-left:20px;">
+            <h5>Patient Height</h5>
+          </div>
+          <mat-form-field appearance="outline" style="margin-left:20px; width:95%">
+            <mat-label>Patient Height</mat-label>
+            <input matInput placeholder="Height" formControlName="height" required>
+          </mat-form-field>
+
+          <div class="col"  style="margin-top:10px; padding-left:20px;">
+            <h5>Patient Weight</h5>
+          </div>
+          <mat-form-field appearance="outline" style="margin-left:20px; width:95%">
+            <mat-label>Patient Weight</mat-label>
+            <input matInput placeholder="Weight" formControlName="weight" required>
+          </mat-form-field>
+
+          <div class="col"  style="margin-top:10px; padding-left:20px;">
+            <h5>Patient Qualification</h5>
+          </div>
+          <mat-form-field appearance="outline" style="margin-left:20px; width:95%">
+            <mat-label>Patient Qualification</mat-label>
+            <input matInput placeholder="Qualification" formControlName="qualification" required>
+          </mat-form-field>
+
+          <div class="col"  style="margin-top:10px; padding-left:20px;">
+            <h5>Patient Job</h5>
+          </div>
+          <mat-form-field appearance="outline" style="margin-left:20px; width:95%">
+            <mat-label>Patient Job</mat-label>
+            <input matInput placeholder="Job" formControlName="job" required>
+          </mat-form-field>
+
+          <div class="col"  style="margin-top:10px; padding-left:20px;">
+            <h5>Patient Travel History</h5>
+          </div>
+          <mat-form-field appearance="outline" style="margin-left:20px; width:95%">
+            <mat-label>Patient Travel History</mat-label>
+            <input matInput placeholder="Travel" formControlName="travel" required>
+          </mat-form-field>
+        </div>
+
+        <div formGroupName="family">
+
+          <div class="col"  style="margin-top:10px; padding-left:20px;">
+            <h5>Member Name</h5>
+          </div>
+          <mat-form-field appearance="outline" style="margin-left:20px; width:95%">
+            <mat-label>Member Name</mat-label>
+            <input matInput placeholder="Name" formControlName="member_name" required>
+          </mat-form-field>
+
+          <div class="col"  style="margin-top:10px; padding-left:20px;">
+            <h5>Member Covid History</h5>
+          </div>
+          <mat-form-field appearance="outline" style="margin-left:20px; width:95%">
+            <mat-label>Member Covid History</mat-label>
+            <input matInput placeholder="0/1" formControlName="member_covid_history" required>
+          </mat-form-field>
+        </div>
+
+        <div formGroupName="test">
+
+          <div class="col"  style="margin-top:10px; padding-left:20px;">
+            <h5>Test Date</h5>
+          </div>
+          <mat-form-field appearance="outline" style="margin-left:20px; width:95%">
+            <mat-label>Test Date</mat-label>
+            <input matInput placeholder="Date" formControlName="test_date" required>
+          </mat-form-field>
+
+          <div class="col"  style="margin-top:10px; padding-left:20px;">
+            <h5>Test Result</h5>
+          </div>
+          <mat-form-field appearance="outline" style="margin-left:20px; width:95%">
+            <mat-label>Test Result</mat-label>
+            <input matInput placeholder="Result" formControlName="result" required>
+          </mat-form-field>
+
+          <div class="col"  style="margin-top:10px; padding-left:20px;">
+            <h5>Symptoms</h5>
+          </div>
+          <mat-form-field appearance="outline" style="margin-left:20px; width:95%">
+            <mat-label>Symptoms</mat-label>
+            <input matInput placeholder="Symptoms" formControlName="symptoms" required>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card>
+    <br>
+  </form>
+  <br>
+</div>

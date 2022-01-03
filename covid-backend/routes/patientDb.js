@@ -16,21 +16,27 @@ router.get('/', async (req, res) => {
     try {
         const patient = await sqlFunctions.getPatient();
         console.log(patient);
+        return res.status(200).json({
+            // message: `Patient`
+            patient
+        });
     } catch (error) {
         console.log(error);
+        res.status(500).send(error.message);
+
     }
-    Patient.findAll()
-        .then(patient => {
-            console.log(patient);
-            return res.status(200).json({
-                // message: `Patient`
-                patient
-            });
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).send(err.message);
-        });
+    // Patient.findAll()
+    //     .then(patient => {
+    //         console.log(patient);
+    //         return res.status(200).json({
+    //             // message: `Patient`
+    //             patient
+    //         });
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //         res.status(500).send(err.message);
+    //     });
 });
 
 //create patient format

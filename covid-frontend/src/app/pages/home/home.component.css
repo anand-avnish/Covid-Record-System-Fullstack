@@ -1,0 +1,35 @@
+.cov{
+  width:100%;
+}
+
+.over{
+  width:100%;
+}
+
+.tabs{
+  background-color: white;
+  color: black !important;
+}
+
+::ng-deep .mat-tab-label{
+  color:#1555A4 !important;
+}
+
+.over{
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.spinner{
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.spin{
+  margin: auto;
+}
+
+.title{
+  text-align: center;
+  text-decoration: underline;
+}
