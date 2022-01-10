@@ -6,11 +6,11 @@ import { PatientService } from 'src/app/services/patient.service';
 import { MessagePopupDialog } from './message-popup/message-popup-dialog';
 
 @Component({
-  selector: 'app-create-patient',
-  templateUrl: './create-patient.component.html',
-  styleUrls: ['./create-patient.component.css']
+  selector: 'app-update-patient',
+  templateUrl: './update-patient.component.html',
+  styleUrls: ['./update-patient.component.css']
 })
-export class CreatePatientComponent implements OnInit {
+export class UpdatePatientComponent implements OnInit {
 
   isLoading = false;
   success = false;
@@ -81,7 +81,7 @@ export class CreatePatientComponent implements OnInit {
     console.log(backendValue);
     if(!this.patientForm.invalid){
       try {
-        const resp = await this.patientService.createPatient(backendValue);
+        const resp = await this.patientService.updatePatient(backendValue);
         this.res = resp;
         this.isLoading = false;
         this.success = true;
@@ -89,7 +89,7 @@ export class CreatePatientComponent implements OnInit {
       } catch (error) {
         let dialog = this.dialog.open(MessagePopupDialog, {
           data: {
-              title: "Unable to create patient!",
+              title: "Unable to update patient!",
               details: `${error.error.message}`
           },
           width: '400px',
@@ -102,7 +102,7 @@ export class CreatePatientComponent implements OnInit {
     }else{
       let dialog = this.dialog.open(MessagePopupDialog, {
         data: {
-            title: "Unable to create patient!",
+            title: "Unable to update patient!",
             details: `Enter all the required(*) field before submitting.`
         },
         width: '400px',
@@ -117,4 +117,5 @@ export class CreatePatientComponent implements OnInit {
   goBack(): void {
     this.router.navigate(['../'], { relativeTo: this.route.parent });
   }
+
 }

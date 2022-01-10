@@ -1,0 +1,30 @@
+<div mat-dialog-content>
+    <h3 mat-dialog-title>
+        {{update.title}}
+    </h3> 
+    
+    <mat-divider class="divider"></mat-divider>
+    <br>
+
+    <div class="row fields">
+        <div class="col">
+            <p>
+                {{update.details}}
+            </p>
+            <p *ngIf="update.error" >
+                {{update.error}}
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <button 
+                type="button" 
+                class="btn btn-primary" 
+                (click)="dialogRef.close()">
+                Close
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+<!-- Header Part -->
+<div style="margin-right: 30pxy-2 mb-4 border-bottom">
+  <header class="d-flex flex-wrap justify-content-center py-2 mb-4 border-bottom">
+    <a routerLinkActive="active" class="nav-link d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+      <span class="fs-4" style="color: #1555A4;">Create New Hospital</span>
+    </a>
+    <div class="text-end" style="margin-top: 8px;">
+      <button type="button" class="btn btn-primary" style="margin-right: 8px;" *ngIf="!success" (click)="onSubmit()">Submit</button>
+      <!-- <button type="button" class="btn btn-outline-primary me-2">Save & Publish</button> -->
+      <button type="button" class="btn btn-outline-primary me-2" (click)="goBack()">Cancel</button>
+    </div>
+  </header>
+</div>
+
+<div class="container card">
+  <form [formGroup]="hospitalForm">
+    <br>
+    <mat-card style="padding: 5px;padding-top:6px; margin:5px; height:auto;">
+      <div class="row" style="margin: 0px;" *ngIf="isLoading">
+        <div class="col">
+            <div class="text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="row" style="margin: 0px; margin-top: 16px;" *ngIf="success">
+        <div class="col jobs" style="text-align:center;">
+          <!-- <h3>Successfully Created New JD</h3> -->
+          <h5>{{res.message}}</h5>
+          <!-- <p>Our team will get back to you once we find a perfect match for you.</p> -->
+        </div>
+      </div>
+      <div class="row" *ngIf = "!isLoading && !success">
+
+        <div class="col"  style="margin-top:10px; padding-left:20px;">
+          <h5>Hospital Name</h5>
+        </div>
+        <mat-form-field appearance="outline" style="margin-left:20px; width:95%">
+          <mat-label>Hospital Name</mat-label>
+          <input matInput placeholder="Name" formControlName="hospital_name" required>
+        </mat-form-field>
+
+        <div class="col"  style="margin-top:10px; padding-left:20px;">
+          <h5>City of Hospital</h5>
+        </div>
+        <mat-form-field appearance="outline" style="margin-left:20px; width:95%">
+          <mat-label>City of Hospital</mat-label>
+          <input matInput placeholder="City" formControlName="city">
+        </mat-form-field>
+
+        <div class="col"  style="margin-top:10px; padding-left:20px;">
+          <h5>State of Hospital</h5>
+        </div>
+        <mat-form-field appearance="outline" style="margin-left:20px; width:95%">
+          <mat-label>State of Hospital</mat-label>
+          <input matInput placeholder="State" formControlName="state">
+        </mat-form-field>
+
+      </div>
+    </mat-card>
+    <br>
+  </form>
+  <br>
+</div>

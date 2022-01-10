@@ -6,18 +6,12 @@ import { RouterModule } from '@angular/router';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const route = [
   {
     path: '',
     component: PatientComponent,
-    // children: [
-    //   // {
-		// 	// 	path: "createPatient",
-		// 	// 	loadChildren: "../create-patient/create-patient.module#CreatePatientModule"
-		// 	// },
-    //   { path: 'createPatient', loadChildren: () => import('./create-patient/create-patient.module').then(m => m.CreatePatientModule) }
-    // ]
   },
 ];
 
@@ -30,6 +24,7 @@ const route = [
     MatProgressSpinnerModule,
     MatTableModule,
     MatButtonModule,
+    MatCheckboxModule,
     RouterModule.forChild(route)
   ]
 })

@@ -9,7 +9,7 @@ const familyHistory = db.define('family_history', {
         primaryKey: true,
         autoIncrement: true,
     },
-    blood_group:{
+    member_blood_group:{
         type: DataTypes.STRING,
     },
     member_name:{

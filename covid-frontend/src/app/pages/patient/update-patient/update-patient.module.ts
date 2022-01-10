@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CreatePatientComponent } from './create-patient.component';
+import { UpdatePatientComponent } from './update-patient.component';
 import { RouterModule } from '@angular/router';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -15,15 +16,16 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
 const route = [
-  { path: '', component: CreatePatientComponent },
+  { path: '', component: UpdatePatientComponent },
 ];
+
 
 @NgModule({
   entryComponents: [
     MessagePopupDialog
   ],
   declarations: [
-    CreatePatientComponent,
+    UpdatePatientComponent,
     MessagePopupDialog
   ],
   imports: [
@@ -42,5 +44,4 @@ const route = [
     RouterModule.forChild(route)
   ]
 })
-
-export class CreatePatientModule { }
+export class UpdatePatientModule { }
