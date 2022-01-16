@@ -1,0 +1,135 @@
+<!-- <div class="header">
+  <button mat-raised-button class="btn add" (click)="goBack()">Back</button>
+</div> -->
+
+<!-- Header Part -->
+<div style="margin-right: 30pxy-2 mb-4 border-bottom">
+  <header class="d-flex flex-wrap justify-content-center py-2 mb-4 border-bottom">
+    <a routerLinkActive="active" class="nav-link d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+      <span class="fs-4" style="color: #1555A4;">Update Treatment</span>
+    </a>
+    <div class="text-end" style="margin-top: 8px;">
+      <button type="button" class="btn btn-primary" style="margin-right: 8px;" *ngIf="!success" (click)="onSubmit()">Submit</button>
+      <!-- <button type="button" class="btn btn-outline-primary me-2">Save & Publish</button> -->
+      <button type="button" class="btn btn-outline-primary me-2" (click)="goBack()">Cancel</button>
+    </div>
+  </header>
+</div>
+
+<div class="container card">
+  <form [formGroup]="treatmentForm">
+    <br>
+    <mat-card style="padding: 5px;padding-top:6px; margin:5px; height:auto;">
+      <div class="row" style="margin: 0px;" *ngIf="isLoading">
+        <div class="col">
+            <div class="text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="row" style="margin: 0px; margin-top: 16px;" *ngIf="success">
+        <div class="col jobs" style="text-align:center;">
+          <!-- <h3>Successfully Created New JD</h3> -->
+          <h5>{{res.message}}</h5>
+          <!-- <p>Our team will get back to you once we find a perfect match for you.</p> -->
+        </div>
+      </div>
+      <div class="row" *ngIf = "!isLoading && !success">
+        <div class="col"  style="margin-top:10px; padding-left:20px;">
+          <h5>Patient Name</h5>
+        </div>
+        <mat-form-field appearance="outline" style="margin-left:20px; width:95%">
+          <mat-label>Patient Name</mat-label>
+          <input matInput placeholder="Name" formControlName="patient" readonly>
+        </mat-form-field>
+
+        <div class="col"  style="margin-top:10px; padding-left:20px;">
+          <h5>Hospital Name</h5>
+        </div>
+        <mat-form-field appearance="outline" style="margin-left:20px; width:95%">
+          <mat-label>Hospital Name</mat-label>
+          <input matInput placeholder="Name" formControlName="hospital" readonly>
+        </mat-form-field>
+
+        <!-- <div class="col"  style="margin-top:10px; padding-left:20px;">
+          <h5>Hospital</h5>
+        </div>
+        <mat-form-field appearance="outline" style="margin-left:20px; width:95%">
+          <mat-label>Hospital</mat-label>
+          <mat-select formControlName="hospital">
+            <mat-option *ngFor="let gen of hospitals" [value]="gen">
+              {{gen}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field> -->
+
+        <div formGroupName="treatment">
+
+          <div class="col"  style="margin-top:10px; padding-left:20px;">
+            <h5>Admission No</h5>
+          </div>
+          <mat-form-field appearance="outline" style="margin-left:20px; width:95%">
+            <mat-label>Admission Number</mat-label>
+            <input matInput placeholder="00001" type="number" formControlName="admission_no" required>
+          </mat-form-field>
+
+          <div class="col"  style="margin-top:10px; padding-left:20px;">
+            <h5>Hospitlization Date</h5>
+          </div>
+          <mat-form-field appearance="outline" style="margin-left:20px; width:95%">
+            <mat-label>Choose a date</mat-label>
+            <input matInput placeholder="Date" [matDatepicker]="picker" formControlName="start_date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <div class="col"  style="margin-top:10px; padding-left:20px;">
+            <h5>Discharge Date</h5>
+          </div>
+          <mat-form-field appearance="outline" style="margin-left:20px; width:95%">
+            <mat-label>Choose a date</mat-label>
+            <input matInput placeholder="Date" [matDatepicker]="picker2" formControlName="discharge_date">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+
+          <div class="col"  style="margin-top:10px; padding-left:20px;">
+            <h5>Is admitted in ICU?</h5>
+          </div>
+          <mat-form-field appearance="outline" style="margin-left:20px; width:95%">
+            <mat-label>ICU Admission</mat-label>
+            <mat-select formControlName="icu_admission">
+              <mat-option *ngFor="let gen of boolType" [value]="gen">
+                {{gen}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div class="col"  style="margin-top:10px; padding-left:20px;">
+            <h5>Is in critical condition?</h5>
+          </div>
+          <mat-form-field appearance="outline" style="margin-left:20px; width:95%">
+            <mat-label>Critical?</mat-label>
+            <mat-select formControlName="critical_condition">
+              <mat-option *ngFor="let gen of boolType" [value]="gen">
+                {{gen}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div class="col"  style="margin-top:10px; padding-left:20px;">
+            <h5>No of days admitted in ICU</h5>
+          </div>
+          <mat-form-field appearance="outline" style="margin-left:20px; width:95%">
+            <mat-label>ICU Days</mat-label>
+            <input matInput placeholder="3" type="number" formControlName="icu_days">
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card>
+    <br>
+  </form>
+  <br>
+</div>

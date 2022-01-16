@@ -17,26 +17,31 @@ router.get('/', async (req, res) => {
         const patient = await sqlFunctions.getPatient();
         console.log(patient);
         return res.status(200).json({
+            patient
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send(error.message);
+    }
+});
+
+//Gives Patient by id
+router.get('/getPatientById', async (req, res) => {
+    const patientID = req.query.id;
+    console.log(patientID);
+    console.log(Patient.tableName);
+    try {
+        const patient = await sqlFunctions.getPatientbyId(patientID);
+        console.log("patient");
+        console.log(patient);
+        return res.status(200).json({
             // message: `Patient`
             patient
         });
     } catch (error) {
         console.log(error);
         res.status(500).send(error.message);
-
     }
-    // Patient.findAll()
-    //     .then(patient => {
-    //         console.log(patient);
-    //         return res.status(200).json({
-    //             // message: `Patient`
-    //             patient
-    //         });
-    //     })
-    //     .catch(err => {
-    //         console.log(err);
-    //         res.status(500).send(err.message);
-    //     });
 });
 
 //create patient format
@@ -186,13 +191,13 @@ router.post('/updatePatient', async (req, res) => {
         console.log(testDetails);
         const testDet = await test.update(testDetails, {
             where: {
-                test_no: test_no.test_no
+                test_no: testDetails.test_no
             }
         });
         console.log(testDet);
         
         return res.status(200).json({
-            message: `Successfully updated patient with id ${patient.patient_id}, member with member id ${family.member_id}, demography, test with test no ${testDet.test_no}`
+            message: `Successfully updated patient ${patientDetails.name} , member , demography, test`
         });
 
     } catch (err) {
@@ -205,6 +210,8 @@ router.post('/updatePatient', async (req, res) => {
 router.post('/removePatient', async (req, res) => {
     const body = req.body;
     console.log(body);
+    const id = body.patient_id;
+    console.log(id);
 
     try {
         await Patient.destroy({

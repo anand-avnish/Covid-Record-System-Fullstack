@@ -49,6 +49,6 @@ export class PatientService {
 
     getPatientById(id){
         let params = new HttpParams().set('id', id);
-        return this.http.get(this.BASE_URL + '/getCandidateById', { params }).toPromise();
+        return this.http.get(this.BASE_URL + '/getPatientById', { params }).toPromise();
     }
 }

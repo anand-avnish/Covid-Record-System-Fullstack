@@ -3,6 +3,7 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PatientService } from 'src/app/services/patient.service';
 
 @Component({
@@ -25,16 +26,21 @@ export class PatientComponent implements OnInit {
   loading = false;
   oneSelected = false;
   anySelected = false;
+  selected;
   show = false;
+  id;
 
   constructor(
     private patientService: PatientService,
-    private cdRef : ChangeDetectorRef
+    private cdRef : ChangeDetectorRef,
+    private router: Router,
+    private activeRoute: ActivatedRoute,
   ) {
   }
 
   async ngOnInit(){
     this.loading=true;
+    this.checkbox();
     try {
       const data = await this.patientService.getPatient();
       let record = data['patient'];
@@ -52,7 +58,6 @@ export class PatientComponent implements OnInit {
     }
     this.loading = false;
   }
-
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -98,28 +103,86 @@ export class PatientComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
   }
 
+  async checkbox(){
+    this.selection.changed.subscribe(value => {
+      // console.log(value);
+
+      if(this.selection.selected.length==1){
+        this.anySelected = true;
+        this.oneSelected = true;
+      }else if(this.selection.selected.length>0){
+        this.oneSelected = false;
+        this.anySelected = true;
+      }else{
+        this.anySelected = false;
+        this.oneSelected = false;
+      }
+      console.log(this.anySelected);
+      console.log(this.oneSelected);
+      this.selected = this.selection.selected.length;
+    })
+  }
+
   checked(event){
     console.log("event");
     console.log(event);
     event.stopPropagation();
-    console.log(this.selection);
+    // console.log(this.selection);
 
-    if(this.selection.selected.length>0){
-      this.anySelected = true;
-      console.log(this.anySelected);
-    }
-    if(this.selection.selected.length==1){
-      this.oneSelected = true;
-      console.log(this.oneSelected);
-    }
-    if(this.selection.selected.length==0){
-      this.oneSelected = false;
-      this.anySelected = false;
-      console.log(this.anySelected);
+    // if(this.selection.selected.length>0){
+    //   this.anySelected = true;
+    //   console.log(this.anySelected);
+    // }
+    // if(this.selection.selected.length==1){
+    //   this.oneSelected = true;
+    //   console.log(this.oneSelected);
+    // }
+    // if(this.selection.selected.length==0){
+    //   this.oneSelected = false;
+    //   this.anySelected = false;
+    //   console.log(this.anySelected);
 
-    }
-    console.log(this.selection.selected);
+    // }
+    // console.log(this.selection.selected);
     return true;
+  }
+
+  async edit(){
+    this.loading = true;
+    await this.router.navigate(['updatePatient'], { relativeTo: this.activeRoute.parent ,queryParams:{id: this.selection.selected[0].Patient_id} });
+  }
+
+  async treatment(){
+    this.loading = true;
+    await this.router.navigate(['../treatment/createTreatment'], { relativeTo: this.activeRoute.parent ,queryParams:{id: this.selection.selected[0].Patient_id} });
+  }
+
+  async delete(){
+    this.loading = true;
+    this.id = this.selection.selected[0].Patient_id;
+    const rem = {
+      "patient_id":this.id,
+      "member_id":this.selection.selected[0].Member_id,
+      "test_no":this.selection.selected[0].test_no
+    }
+    const result = await this.patientService.removePatient(rem);
+    console.log(result);
+    try {
+      const data = await this.patientService.getPatient();
+      let record = data['patient'];
+      this.patients = record.data;
+      console.log(this.patients);
+      // this.dataSource = new MatTableDataSource(this.patients);
+      this.dataSource.data = this.patients;
+      // console.log(this.dataSource);
+
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      // console.log(data);
+    } catch (error) {
+      console.log(error)
+    }
+    this.loading = false;
   }
 
 }

@@ -15,9 +15,11 @@ export class UpdatePatientComponent implements OnInit {
   isLoading = false;
   success = false;
   res;
+  data;
 
   patientForm = this.fb.group({
     patient: this.fb.group({
+      patient_id:[''],
       name:['', [Validators.required]],
       age:[''],
       gender:[''],
@@ -31,11 +33,13 @@ export class UpdatePatientComponent implements OnInit {
       travel:[''],
     }),
     family:this.fb.group({
+      member_id:[''],
       member_name:[''],
       member_blood_group:[''],
       member_covid_history:[''],
     }),
     test:this.fb.group({
+      test_no:[''],
       test_date:[''],
       result:[''],
       symptoms:['']
@@ -51,10 +55,45 @@ export class UpdatePatientComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private patientService: PatientService,
-    public dialog:MatDialog
+    public dialog:MatDialog,
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.isLoading=true;
+    this.route.queryParams.subscribe(async val => {
+      console.log(val);
+      const req=await this.patientService.getPatientById(val.id);
+      console.log(req);
+      this.data = req['patient']['data'][0];
+      console.log(this.data);
+      this.formFill();
+    });
+    this.isLoading=false;
+  }
+
+  formFill(){
+    if(this.data!=undefined){
+
+      this.patientForm.get('patient.patient_id').setValue(this.data.Patient_id);
+      this.patientForm.get('patient.name').setValue(this.data.Name);
+      this.patientForm.get('patient.age').setValue(this.data.Age);
+      this.patientForm.get('patient.gender').setValue(this.data.Gender);
+      this.patientForm.get('patient.blood_group').setValue(this.data.Blood_group);
+      this.patientForm.get('demography.height').setValue(this.data.Height);
+      this.patientForm.get('demography.weight').setValue(this.data.Weight);
+      this.patientForm.get('demography.qualification').setValue(this.data.Qualification);
+      this.patientForm.get('demography.job').setValue(this.data.Job);
+      this.patientForm.get('demography.travel').setValue(this.data.Travel);
+      this.patientForm.get('family.member_id').setValue(this.data.Member_id);
+      this.patientForm.get('family.member_name').setValue(this.data.Member_name);
+      this.patientForm.get('family.member_blood_group').setValue(this.data.Member_blood_group);
+      this.patientForm.get('family.member_covid_history').setValue(this.data.Member_covid_history);
+      this.patientForm.get('test.test_no').setValue(this.data.test_no);
+      this.patientForm.get('test.test_date').setValue(this.data.test_date);
+      this.patientForm.get('test.result').setValue(this.data.result);
+      this.patientForm.get('test.symptoms').setValue(this.data.symptoms);
+
+    }
   }
 
   async onSubmit(){

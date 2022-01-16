@@ -41,6 +41,38 @@ async function getPatient() {
     return {data: result[0]};
 }
 
+async function getPatientbyId(patientId) {
+    const query = `
+        SELECT *
+        FROM patient p, demography d, family_history f, test t 
+        where
+            p.patient_id=d.patient_id and 
+            p.patient_id=f.patient_id and 
+            p.patient_id=t.patient_id and
+            p.patient_id = ${patientId}
+    `;
+    
+    // const pool = await db;
+    // let req = await db.request();
+    // req = req.input("id", patientId) ;
+
+    const result = await db.query(query);
+    console.log(result);
+    return {data: result[0]};
+}
+
+async function deletePatientbyId(patientId) {
+    const query = `
+        DELETE 
+        FROM patient
+        where patient_id = ${patientId}
+    `;
+
+    const result = await db.query(query);
+    console.log(result);
+    return {data: result[0]};
+}
+
 async function getHospital() {
     const query = `
         SELECT *
@@ -52,4 +84,46 @@ async function getHospital() {
     return {data: result[0]};
 }
 
-module.exports = {getPatient, getHospital};
+async function getHospitalbyId(hospitalID) {
+    const query = `
+        SELECT *
+        FROM hospital
+        where hospital_id = ${hospitalID}
+    `;
+
+    const result = await db.query(query);
+    console.log(result);
+    return {data: result[0]};
+}
+
+async function getTreatment() {
+    const query = `
+        SELECT p.patient_id, h.hospital_id, p.name, h.hospital_name, t.admission_no, t.start_date, t.discharge_date, t.icu_admission, t.critical_condition, t.icu_days
+        FROM treatment t, patient p, hospital h  
+        where
+            t.patient_id=p.patient_id and 
+            t.hospital_id=h.hospital_id
+    `;
+
+    const result = await db.query(query);
+    console.log(result);
+    return {data: result[0]};
+}
+
+async function getTreatmentbyId(body) {
+    const query = `
+        SELECT p.patient_id, h.hospital_id, p.name, h.hospital_name, t.admission_no, t.start_date, t.discharge_date, t.icu_admission, t.critical_condition, t.icu_days
+        FROM treatment t, patient p, hospital h  
+        where
+            t.patient_id=p.patient_id and 
+            t.hospital_id=h.hospital_id and
+            t.hospital_id = ${body.hospital_id} and
+            t.patient_id = ${body.patient_id}
+    `;
+
+    const result = await db.query(query);
+    console.log(result);
+    return {data: result[0]};
+}
+
+module.exports = {getPatient, getHospital, getPatientbyId, getHospitalbyId, getTreatment, getTreatmentbyId};

@@ -15,8 +15,10 @@ export class UpdateHospitalComponent implements OnInit {
   isLoading = false;
   success = false;
   res;
+  data;
 
   hospitalForm = this.fb.group({
+    hospital_id: [''],
     hospital_name: ['', [Validators.required]],
     state: ['', [Validators.required]],
     city: ['', [Validators.required]]
@@ -31,6 +33,26 @@ export class UpdateHospitalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.isLoading=true;
+    this.route.queryParams.subscribe(async val => {
+      console.log(val);
+      const req=await this.hospitalService.getHospitalById(val.id);
+      console.log(req);
+      this.data = req['hospital']['data'][0];
+      console.log(this.data);
+      this.formFill();
+    });
+    this.isLoading=false;
+  }
+
+  formFill(){
+    if(this.data!=undefined){
+
+      this.hospitalForm.get('hospital_id').setValue(this.data.hospital_id);
+      this.hospitalForm.get('hospital_name').setValue(this.data.hospital_name);
+      this.hospitalForm.get('state').setValue(this.data.state);
+      this.hospitalForm.get('city').setValue(this.data.city);
+    }
   }
 
   async onSubmit(){
@@ -46,7 +68,7 @@ export class UpdateHospitalComponent implements OnInit {
     console.log(backendValue);
     if(!this.hospitalForm.invalid){
       try {
-        const resp = await this.hospitalService.createHospital(backendValue);
+        const resp = await this.hospitalService.updateHospital(backendValue);
         this.res = resp;
         this.isLoading = false;
         this.success = true;

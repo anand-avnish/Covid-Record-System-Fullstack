@@ -19,7 +19,7 @@ export class TopNavbarComponent implements OnInit {
     new TabModel('Home', '/home', true),
     new TabModel('Patients', '/patient', false),
     new TabModel('Hospitals', '/hospital', false),
-    // new TabModel('Gallery', '/gallery', false),
+    new TabModel('Treatment', '/treatment', false),
     // new TabModel('Contact', '/contact', false)
   ];
 

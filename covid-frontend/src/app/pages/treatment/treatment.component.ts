@@ -4,33 +4,32 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HospitalService } from 'src/app/services/hospital.service';
+import { TreatmentService } from 'src/app/services/treatment.service';
 
 @Component({
-  selector: 'app-hospital',
-  templateUrl: './hospital.component.html',
-  styleUrls: ['./hospital.component.css']
+  selector: 'app-treatment',
+  templateUrl: './treatment.component.html',
+  styleUrls: ['./treatment.component.css']
 })
-export class HospitalComponent implements OnInit {
+export class TreatmentComponent implements OnInit {
 
-
-  displayColumns: string[] = ["hospital_name", 'city', 'state'];
+  displayColumns: string[] = ["name","hospital_name", 'admission_no', 'start_date', 'discharge_date', 'critical_condition', 'icu_admission', 'icu_days'];
   displayedColumns: string[] = ["select", ...this.displayColumns];
-  headerColumns: string[] = ['Hospital Name', 'City', 'State'];
+  headerColumns: string[] = ["Patient Name","Hospital Name", 'Admission No', 'Admission Date', 'Discharge Date', 'Critical Condition', 'ICU Admission', 'ICU Days'];
   dataSource = new MatTableDataSource<any>([]);
   selection = new SelectionModel<any>(true, []);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  hospitals:any;
+  treatments:any;
   loading = false;
   selected;
   oneSelected = false;
   id;
 
   constructor(
-    private hospitalService: HospitalService,
+    private treatmentService: TreatmentService,
     private router: Router,
     private activeRoute: ActivatedRoute,
   ) {
@@ -40,13 +39,14 @@ export class HospitalComponent implements OnInit {
     this.loading=true;
     this.checkbox();
     try {
-      const data = await this.hospitalService.getHospital();
-      this.hospitals = data['hospital'];
-      // this.hospitals = record.data;
-      console.log(this.hospitals);
-      // this.dataSource = new MatTableDataSource(this.patients);
-      this.dataSource.data = this.hospitals;
-      // console.log(this.dataSource);
+      const data = await this.treatmentService.getTreatment();
+      console.log(data);
+
+      let record = data['treatments'];
+      this.treatments = record.data;
+      console.log(this.treatments);
+      this.dataSource.data = this.treatments;
+      console.log(this.dataSource);
 
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -121,24 +121,25 @@ export class HospitalComponent implements OnInit {
 
   async edit(){
     this.loading = true;
-    await this.router.navigate(['updateHospital'], { relativeTo: this.activeRoute.parent ,queryParams:{id: this.selection.selected[0].hospital_id} });
+    await this.router.navigate(['updateTreatment'], { relativeTo: this.activeRoute.parent ,queryParams:{hospital_id: this.selection.selected[0].hospital_id, patient_id: this.selection.selected[0].patient_id} });
   }
 
   async delete(){
     this.loading = true;
-    this.id = this.selection.selected[0].hospital_id;
+    this.id = this.selection.selected[0];
     const rem = {
-      "hospital_id":this.id
+      "hospital_id":this.id.hospital_id,
+      "patient_id":this.id.patient_id
     }
-    const result = await this.hospitalService.removeHospital(rem);
+    const result = await this.treatmentService.removeTreatment(rem);
     console.log(result);
     try {
-      const data = await this.hospitalService.getHospital();
-      this.hospitals = data['hospital'];
+      const data = await this.treatmentService.getTreatment();
+      this.treatments = data['treatments'];
       // this.hospitals = record.data;
-      console.log(this.hospitals);
+      console.log(this.treatments);
       // this.dataSource = new MatTableDataSource(this.patients);
-      this.dataSource.data = this.hospitals;
+      this.dataSource.data = this.treatments;
       // console.log(this.dataSource);
 
       this.dataSource.paginator = this.paginator;
@@ -149,5 +150,4 @@ export class HospitalComponent implements OnInit {
     }
     this.loading = false;
   }
-
 }

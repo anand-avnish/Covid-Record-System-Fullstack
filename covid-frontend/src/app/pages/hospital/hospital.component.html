@@ -7,9 +7,9 @@
   <!-- <h1>
     Patient Records
   </h1> -->
-  <button mat-raised-button class="btn add" routerLink="createHospital">Create Hospital</button>
-  <button mat-raised-button class="btn add" routerLink="updateHospital">Update Hospital</button>
-  <button mat-raised-button class="btn add">Delete Hospital</button>
+  <button mat-raised-button class="btn add" routerLink="createHospital">Create</button>
+  <button mat-raised-button class="btn add" *ngIf="oneSelected" (click)="edit()">Update</button>
+  <button mat-raised-button class="btn add" *ngIf="oneSelected" (click)="delete()">Delete</button>
 </div>
 <div class="container spinner" *ngIf="loading">
   <mat-spinner class="spin"></mat-spinner>
@@ -21,7 +21,7 @@
   </mat-form-field> -->
 
     <div style="margin-top:20px">
-      <div class="row data-container" style="height:50vh">
+      <div class="row data-container" style="height:56vh">
         <table mat-table class="mat-elevation-z8" class="col-12" matSort style="max-height:500px" [dataSource]="dataSource.data" matSort>
 
           <!-- Checkbox Column -->

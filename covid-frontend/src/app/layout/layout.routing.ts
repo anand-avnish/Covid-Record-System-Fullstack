@@ -19,23 +19,32 @@ const LAYOUT_ROUTES: Routes = [
 				path: "patient",
 				loadChildren: () => import('src/app/pages/patient/patient.module').then(m => m.PatientModule)
 			},
-      { path: 'patient/createPatient', loadChildren: () => import('src/app/pages/patient/create-patient/create-patient.module').then(m => m.CreatePatientModule) },
-      { path: 'patient/updatePatient', loadChildren: () => import('src/app/pages/patient/update-patient/update-patient.module').then(m => m.UpdatePatientModule) },
-
+      {
+        path: 'patient/createPatient',
+        loadChildren: () => import('src/app/pages/patient/create-patient/create-patient.module').then(m => m.CreatePatientModule) },
+      {
+        path: 'patient/updatePatient',
+        loadChildren: () => import('src/app/pages/patient/update-patient/update-patient.module').then(m => m.UpdatePatientModule) },
+			{
+				path: "treatment",
+				loadChildren: () => import('src/app/pages/treatment/treatment.module').then(m => m.TreatmentModule)
+			},
+      {
+        path: 'treatment/createTreatment',
+        loadChildren: () => import('src/app/pages/treatment/create-treatment/create-treatment.module').then(m => m.CreateTreatmentModule) },
+      {
+        path: 'treatment/updateTreatment',
+        loadChildren: () => import('src/app/pages/treatment/update-treatment/update-treatment.module').then(m => m.UpdateTreatmentModule) },
       {
         path: "hospital",
 				loadChildren: () => import('src/app/pages/hospital/hospital.module').then(m => m.HospitalModule)
 			},
-      { path: 'hospital/createHospital', loadChildren: () => import('src/app/pages/hospital/create-hospital/create-hospital.module').then(m => m.CreateHospitalModule) },
-      { path: 'hospital/updateHospital', loadChildren: () => import('src/app/pages/hospital/update-hospital/update-hospital.module').then(m => m.UpdateHospitalModule) },
-      // {
-			// 	path: "gallery",
-			// 	loadChildren: () => import('src/app/pages/gallery/gallery.module').then(m => m.GallModule)
-			// },
-			// {
-			// 	path: "contact",
-			// 	loadChildren: () => import('src/app/pages/contact/contact.module').then(m => m.ContactModule)
-			// }
+      {
+        path: 'hospital/createHospital',
+        loadChildren: () => import('src/app/pages/hospital/create-hospital/create-hospital.module').then(m => m.CreateHospitalModule) },
+      {
+        path: 'hospital/updateHospital',
+        loadChildren: () => import('src/app/pages/hospital/update-hospital/update-hospital.module').then(m => m.UpdateHospitalModule) },
 		]
 	},
 
