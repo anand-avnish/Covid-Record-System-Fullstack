@@ -14,9 +14,9 @@ import { HospitalService } from 'src/app/services/hospital.service';
 export class HospitalComponent implements OnInit {
 
 
-  displayColumns: string[] = ["hospital_name", 'city', 'state'];
+  displayColumns: string[] = ["hospital_name", 'city', 'state', 'no_patients'];
   displayedColumns: string[] = ["select", ...this.displayColumns];
-  headerColumns: string[] = ['Hospital Name', 'City', 'State'];
+  headerColumns: string[] = ['Hospital Name', 'City', 'State', 'No of Patients'];
   dataSource = new MatTableDataSource<any>([]);
   selection = new SelectionModel<any>(true, []);
 

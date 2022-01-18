@@ -17,6 +17,9 @@ const hospital = db.define('hospital', {
     state:{
         type: DataTypes.STRING,
     },
+    no_patients:{
+        type: DataTypes.INTEGER,
+    },
     createdAt: {
         allowNull: false,
         defaultValue: Sequelize.fn('now'),

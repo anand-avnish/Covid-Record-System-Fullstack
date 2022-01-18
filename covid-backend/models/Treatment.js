@@ -16,7 +16,6 @@ const treatment = db.define('treatment', {
     hospital_id:{
         type: DataTypes.INTEGER,
         // primaryKey: true,
-        autoIncrement: true,
         references: {
             model: hospital,
             key: "hospital_id"
@@ -25,6 +24,7 @@ const treatment = db.define('treatment', {
     admission_no:{
         type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
     },
     start_date:{
         type: DataTypes.DATE,

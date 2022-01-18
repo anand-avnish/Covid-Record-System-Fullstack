@@ -13,9 +13,9 @@ import { TreatmentService } from 'src/app/services/treatment.service';
 })
 export class TreatmentComponent implements OnInit {
 
-  displayColumns: string[] = ["name","hospital_name", 'admission_no', 'start_date', 'discharge_date', 'critical_condition', 'icu_admission', 'icu_days'];
+  displayColumns: string[] = ["name","hospital_name", 'start_date', 'discharge_date', 'critical_condition', 'icu_admission', 'icu_days'];
   displayedColumns: string[] = ["select", ...this.displayColumns];
-  headerColumns: string[] = ["Patient Name","Hospital Name", 'Admission No', 'Admission Date', 'Discharge Date', 'Critical Condition', 'ICU Admission', 'ICU Days'];
+  headerColumns: string[] = ["Patient Name","Hospital Name", 'Admission Date', 'Discharge Date', 'Critical Condition', 'ICU Admission', 'ICU Days'];
   dataSource = new MatTableDataSource<any>([]);
   selection = new SelectionModel<any>(true, []);
 

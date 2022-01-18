@@ -24,7 +24,7 @@ export class UpdateTreatmentComponent implements OnInit {
     patient:[''],
     hospital: ['', [Validators.required]],
     treatment: this.fb.group({
-      admission_no:[''],
+      // admission_no:[''],
       start_date:[''],
       discharge_date:[''],
       icu_admission:[''],

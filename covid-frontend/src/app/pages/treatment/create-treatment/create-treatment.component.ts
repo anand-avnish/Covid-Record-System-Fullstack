@@ -24,7 +24,7 @@ export class CreateTreatmentComponent implements OnInit {
     patient:[''],
     hospital: ['', [Validators.required]],
     treatment: this.fb.group({
-      admission_no:[''],
+      // admission_no:[''],
       start_date:[''],
       discharge_date:[''],
       icu_admission:[''],
@@ -82,7 +82,17 @@ export class CreateTreatmentComponent implements OnInit {
       }
     })
     console.log(id);
+    if(value.treatment.icu_admission=='True'){
+      value.treatment.icu_admission = 1;
+    }else{
+      value.treatment.icu_admission = 0;
+    }
 
+    if(value.treatment.critical_condition=='True'){
+      value.treatment.critical_condition = 1;
+    }else{
+      value.treatment.critical_condition = 0;
+    }
     let backendValue: any ={};
     if(value){
       // backendValue.patient = {
